@@ -18,8 +18,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
-        // Verifica se o usuário existe
+        
         if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json(['message' => 'Credenciais inválidas'], 401);
         }

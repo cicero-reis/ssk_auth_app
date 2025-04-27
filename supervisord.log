@@ -1,0 +1,27 @@
+2025-04-21 11:43:39,555 INFO supervisord started with pid 1
+2025-04-21 11:43:40,558 INFO spawned: 'php-fpm' with pid 7
+2025-04-21 11:43:41,597 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-04-21 11:45:28,900 WARN received SIGQUIT indicating exit request
+2025-04-21 11:45:28,900 INFO waiting for php-fpm to die
+2025-04-21 11:45:28,905 INFO stopped: php-fpm (exit status 0)
+2025-04-21 11:57:56,697 INFO supervisord started with pid 1
+2025-04-21 11:57:57,703 INFO spawned: 'php-fpm' with pid 7
+2025-04-21 11:57:57,055 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-04-21 11:59:45,287 INFO supervisord started with pid 1
+2025-04-21 11:59:46,290 INFO spawned: 'php-fpm' with pid 8
+2025-04-21 11:59:47,355 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-04-21 12:52:20,660 WARN received SIGQUIT indicating exit request
+2025-04-21 12:52:20,663 INFO waiting for php-fpm to die
+2025-04-21 12:52:20,689 INFO stopped: php-fpm (exit status 0)
+2025-04-21 13:05:34,605 INFO supervisord started with pid 1
+2025-04-21 13:05:35,623 INFO spawned: 'php-fpm' with pid 6
+2025-04-21 13:05:36,862 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-04-21 13:27:38,382 INFO supervisord started with pid 1
+2025-04-21 13:27:39,388 INFO spawned: 'php-fpm' with pid 7
+2025-04-21 13:27:40,435 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-04-21 13:29:14,603 INFO supervisord started with pid 1
+2025-04-21 13:29:15,607 INFO spawned: 'php-fpm' with pid 7
+2025-04-21 13:29:16,652 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-04-21 13:31:38,308 WARN received SIGQUIT indicating exit request
+2025-04-21 13:31:38,308 INFO waiting for php-fpm to die
+2025-04-21 13:31:38,315 INFO stopped: php-fpm (exit status 0)
