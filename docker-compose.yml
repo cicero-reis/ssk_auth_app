@@ -1,62 +1,44 @@
 services:
-    laravel.test:
-        build:
-            context: .
-            dockerfile: Dockerfile
-            args:
-                WWWGROUP: '${WWWGROUP}'
-        image: 'sail-8.4/app'
-        container_name: auth
-        extra_hosts:
-            - 'host.docker.internal:host-gateway'
+
+    ssk-auth-app:
+        image: ciceroreis/ssk-application:latest
+        container_name: ssk-auth-app
         ports:
-            - '${APP_PORT:-80}:80'
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
-            - '443:443' 
-            - '443:443/udp' 
-        environment:
-            WWWUSER: '${WWWUSER}'
-            LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
-            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
-            IGNITION_LOCAL_SITES_PATH: '${PWD}'
-            SUPERVISOR_PHP_COMMAND: "/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan octane:start --host=localhost --port=443 --admin-port=2019 --https" 
-            XDG_CONFIG_HOME:  /var/www/html/config 
-            XDG_DATA_HOME:  /var/www/html/data 
+            - "8001:8080"
         volumes:
-            - '.:/var/www/html'
+            - ./../ssk_auth_app:/application
+        environment:
+            - APP_ENV=local
+            - APP_DEBUG=true
+            - OCTANE_PORT=8080
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
         networks:
             - sail
         depends_on:
-            - mysql
             - redis
-    mysql:
-        image: 'mysql/mysql-server:8.0'
-        container_name: mysql
-        ports:
-            - '${FORWARD_DB_PORT:-3306}:3306'
+            - localstack
+
+    ssk-auth-app-db:
+        image: mysql:5.7.22
+        container_name: ssk-auth-app-db
+        restart: unless-stopped
         environment:
-            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ROOT_HOST: '%'
-            MYSQL_DATABASE: '${DB_DATABASE}'
-            MYSQL_USER: '${DB_USERNAME}'
-            MYSQL_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+            MYSQL_DATABASE: ssk_auth_app_db
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_PASSWORD: root
+            MYSQL_USER: root
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
         volumes:
-            - 'sail-mysql:/var/lib/mysql'
-            - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+            - ssk_auth_data:/var/lib/mysql
+        ports:
+            - "3308:3306"
         networks:
-            - sail
-        healthcheck:
-            test:
-                - CMD
-                - mysqladmin
-                - ping
-                - '-p${DB_PASSWORD}'
-            retries: 3
-            timeout: 5s
+            - sail   
     redis:
         image: 'redis:alpine'
+        container_name: redis
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
         volumes:
@@ -70,11 +52,32 @@ services:
                 - ping
             retries: 3
             timeout: 5s
+
+    localstack:
+        image: localstack/localstack
+        container_name: ssk_localstack
+        ports:
+            - "127.0.0.1:4566:4566"
+            - "127.0.0.1:4510-4559:4510-4559"
+        environment:
+            #- DEBUG=${DEBUG:-0}
+            - DEBUG=1 # Ativa a depuração
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        volumes:
+            - ssk_localstack:/var/lib/localstack
+            - "/var/run/docker.sock:/var/run/docker.sock"
+        networks:
+            - sail
+            
 networks:
     sail:
         driver: bridge
+
 volumes:
-    sail-mysql:
+    ssk_auth_data:
         driver: local
     sail-redis:
+        driver: local
+    ssk_localstack:
         driver: local
