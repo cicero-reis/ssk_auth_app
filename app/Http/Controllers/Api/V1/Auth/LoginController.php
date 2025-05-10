@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\DTOs\Auth\LoginDTO;
+use App\DTOs\Auth\TokenResponseDTO;
 use App\Interfaces\Services\Auth\LoginServiceInterface;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
@@ -25,13 +26,8 @@ class LoginController
         $token = $this->loginService->execute($loginDTO);
 
         if ($token) {
-            return response()->json(
-                [
-                    'access_token' => $token,
-                    'token_type' => 'bearer',
-                    'expires_in' => JWTAuth::factory()->getTTL() * 60,
-                    'message' => 'Login successful'
-                ], 200);
+            $tokenDto = TokenResponseDTO::fromToken($token);
+            return response()->json($tokenDto->toArray(), 200);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
