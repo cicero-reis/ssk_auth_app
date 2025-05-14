@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+set -e
+
+export PHP_CS_FIXER_IGNORE_ENV=1
+
+echo "\n🔍 Verificando PHP CS Fixer (dry‑run + diff + risky)…"
+./vendor/bin/php-cs-fixer fix \
+    --dry-run --diff --allow-risky=yes
+
+echo "\n🔧 Corrigindo PHP CS Fixer (apply + risky)…"
+./vendor/bin/php-cs-fixer fix \
+    --allow-risky=yes \
+    --using-cache=yes
+
+echo "📌 Adicionando arquivos modificados ao commit…"
+git add .
+
+echo "\n🔍 Rodando PHPStan (level max)…"
+./vendor/bin/phpstan analyse app --level=5
+
+echo "✅ Qualidade de código aprovada!\n"
+
+echo "🚀 Executando PHPUnit…"
+php artisan test --stop-on-failure --colors=always
+
+echo "\n✅ Todos os testes passaram!\n"

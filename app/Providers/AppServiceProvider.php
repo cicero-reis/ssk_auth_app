@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
             'App\Interfaces\Services\Auth\LogoutServiceInterface',
             'App\Services\Auth\LogoutService'
         );
-        
+
         $this->app->bind(
             'App\Interfaces\Services\Auth\RefreshTokenServiceInterface',
             'App\Services\Auth\RefreshTokenService'

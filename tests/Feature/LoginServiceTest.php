@@ -1,13 +1,12 @@
 <?php
 
-use Tests\TestCase;
 use App\Models\User;
 use App\DTOs\Auth\LoginDTO;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Services\Auth\LoginService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
 it('returns a valid JWT token when authenticating with correct credentials', function () {
     // Arrange: create a user

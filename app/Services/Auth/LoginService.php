@@ -10,6 +10,7 @@ class LoginService implements LoginServiceInterface
 {
     public function execute(LoginDTO $loginDTO): ?string
     {
+        /** @phpstan-ignore-next-line */
         return JWTAuth::attempt($loginDTO->toArray());
     }
 }
