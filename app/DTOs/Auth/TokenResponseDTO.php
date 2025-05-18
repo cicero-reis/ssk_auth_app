@@ -14,7 +14,7 @@ class TokenResponseDTO
         string $accessToken,
         string $tokenType,
         string $expiresIn
-    ){
+    ) {
         $this->accessToken = $accessToken;
         $this->tokenType = $tokenType;
         $this->expiresIn = $expiresIn;
