@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\DTOs\Auth\LoginDTO;
 use App\DTOs\Auth\TokenResponseDTO;
+use App\Http\Requests\AuthLoginRequest;
 use App\Interfaces\Services\Auth\LoginServiceInterface;
-use Firebase\JWT\JWT;
-use Illuminate\Http\Request;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LoginController
 {
@@ -19,7 +17,7 @@ class LoginController
         $this->loginService = $loginService;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(AuthLoginRequest $request)
     {
         $loginDTO = LoginDTO::fromRequest($request->all());
 
