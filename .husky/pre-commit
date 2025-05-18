@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+set -e
+
+echo "\n🔍 Verificando PHP CS Fixer (dry-run + diff + risky)…"
+./vendor/bin/php-cs-fixer fix --dry-run --diff --allow-risky=yes || true
+
+echo "\n🔧 Corrigindo PHP CS Fixer (apply + risky)…"
+./vendor/bin/php-cs-fixer fix --allow-risky=yes --using-cache=yes
+
+echo "📌 Adicionando arquivos modificados ao commit…"
+git add .
+
+echo
+echo "🔍 Rodando PHPStan (level max)…"
+./vendor/bin/phpstan analyse app --level=5
+
+echo
+echo "✅ Qualidade de código aprovada!"
+
+echo
+echo "🚀 Executando Pest…"
+./vendor/bin/pest --stop-on-failure --colors=always
+
+echo
+echo "✅ Todos os testes passaram!"

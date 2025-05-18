@@ -14,7 +14,7 @@ class TokenResponseDTO
         string $accessToken,
         string $tokenType,
         string $expiresIn
-    ){
+    ) {
         $this->accessToken = $accessToken;
         $this->tokenType = $tokenType;
         $this->expiresIn = $expiresIn;
@@ -25,6 +25,7 @@ class TokenResponseDTO
         return new self(
             accessToken: $token,
             tokenType: 'bearer',
+            /** @phpstan-ignore-next-line */
             expiresIn: (string) JWTAuth::factory()->getTTL() * 60,
         );
     }

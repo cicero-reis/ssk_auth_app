@@ -14,7 +14,7 @@ class LoginController
     private LoginServiceInterface $loginService;
 
     public function __construct(
-       LoginServiceInterface $loginService
+        LoginServiceInterface $loginService
     ) {
         $this->loginService = $loginService;
     }
