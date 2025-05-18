@@ -25,7 +25,7 @@ class TokenResponseDTO
         return new self(
             accessToken: $token,
             tokenType: 'bearer',
-            expiresIn: JWTAuth::factory()->getTTL() * 60,
+            expiresIn: (string) JWTAuth::factory()->getTTL() * 60,
         );
     }
 
