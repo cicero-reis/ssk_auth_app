@@ -54,8 +54,8 @@ class AuthController extends Controller
     // }
 
 
-    // public function register()
-    // {
-    //     return response()->json(['message' => 'Registro realizado com sucesso!']);
-    // }
+    public function register()
+    {
+        return response()->json(['message' => 'Registro realizado com sucesso!']);
+    }
 }

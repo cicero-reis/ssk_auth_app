@@ -17,13 +17,13 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            'App\Interfaces\Services\Auth\LogoutServiceInterface',
-            'App\Services\Auth\LogoutService'
+            'App\Interfaces\Services\Auth\RefreshServiceInterface',
+            'App\Services\Auth\RefreshService'
         );
 
         $this->app->bind(
-            'App\Interfaces\Services\Auth\RefreshTokenServiceInterface',
-            'App\Services\Auth\RefreshTokenService'
+            'App\Interfaces\Services\Auth\LogoutServiceInterface',
+            'App\Services\Auth\LogoutService'
         );
     }
 
