@@ -23,13 +23,12 @@ class RefreshController
     public function __invoke(): JsonResponse
     {
         try {
+
             $newToken = $this->refreshService->execute();
 
-            if ($newToken) {
-                $tokenDto = TokenResponseDTO::fromToken($newToken);
-                return response()->json($tokenDto->toArray(), JWTAuthEnum::HTTP_OK);
-            }
-            throw new JWTException();
+            $tokenDto = TokenResponseDTO::fromToken($newToken);
+            return response()->json($tokenDto->toArray(), JWTAuthEnum::HTTP_OK);
+
         } catch (JWTException $e) {
             return handleTokenException($e);
         }
